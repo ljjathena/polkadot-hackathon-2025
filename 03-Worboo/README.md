@@ -99,7 +99,7 @@ npm install --prefix packages/relayer
 npm install --ignore-scripts --prefix react-wordle
 ```
 
-> The root install pulls in shared lint/format tooling. `--ignore-scripts` keeps Husky from running when the repo is checked out outside Git.
+> The root install pulls in shared lint/format tooling. `--ignore-scripts` keeps Husky from running when the repo is checked out outside Git. If you still see Husky errors, set `HUSKY=0` (or `HUSKY_SKIP_INSTALL=1`) before installing.
 
 ### 3. Configure environment
 
@@ -192,6 +192,7 @@ Config keys mirror the environment variables (which still work for quick overrid
 ```
 
 Set `RELAYER_CONFIG_PATH` if you store the file outside `packages/relayer/config/`.
+> Container deploy: docker build -f packages/relayer/Dockerfile -t worboo-relayer . then run with your mounted elayer.config.json. Process manager: pm2 start packages/relayer/ecosystem.config.cjs.
 
 Use `healthCorsOrigin: "disable"` (or `RELAYER_HEALTH_CORS_ORIGIN=disable`) if you need to omit the `Access-Control-Allow-Origin` header entirely.
 
@@ -210,7 +211,7 @@ An HTTP endpoint is also exposed at `http://localhost:8787/healthz` (configurabl
 
 | Layer | Command | Notes |
 | --- | --- | --- |
-| Monorepo lint | `npm run lint` | Shared ESLint config covering contracts, relayer, and frontend code. |
+| Monorepo lint | `npm run lint` | Shared ESLint config covering the contracts and relayer packages. |
 | Smart contracts | `npm run test` (in `packages/contracts`) | Hardhat + ethers v6, deterministic tests for registry/token/shop. |
 | Frontend services | `npm test -- --watch=false --testPathPattern="(shop|contracts|words)"` | Runs the curated unit tests (shop utilities, contract config, word helpers). Legacy CRA tests currently require additional polyfills (see “Known Issues”). |
 | Relayer service | `npm test` (in `packages/relayer`) | Vitest suite covering config parsing, persistence store, and mint retry handler. |
@@ -285,3 +286,7 @@ Short term goals are tracked in [`doc/implementation-plan.md`](doc/implementatio
 ---
 
 Made with 🟩🟨⬛ by the Worboo team for the Dot Your Future hackathon.
+
+
+
+
