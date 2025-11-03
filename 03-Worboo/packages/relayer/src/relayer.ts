@@ -43,7 +43,10 @@ async function main() {
     wallet
   )
 
-  const store = await ProcessedEventStore.open({ filePath: cfg.cachePath })
+  const store = await ProcessedEventStore.open({
+    filePath: cfg.cachePath,
+    maxEntries: cfg.cacheMaxEntries,
+  })
   const metrics = new RelayerMetrics({
     healthPath: RelayerMetrics.resolveDefaultPath(cfg.healthPath),
   })

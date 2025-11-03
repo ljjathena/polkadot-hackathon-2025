@@ -20,6 +20,7 @@ describe('loadConfig', () => {
     delete process.env.RELAYER_MAX_RETRIES;
     delete process.env.RELAYER_BACKOFF_MS;
     delete process.env.RELAYER_CACHE_PATH;
+    delete process.env.RELAYER_CACHE_MAX_ENTRIES;
     delete process.env.RELAYER_HEALTH_PATH;
     delete process.env.RELAYER_HEALTH_PORT;
     delete process.env.RELAYER_HEALTH_HOST;
@@ -65,6 +66,7 @@ describe('loadConfig', () => {
     expect(config.maxRetries).toBe(3);
     expect(config.backoffMs).toBe(1000);
     expect(config.cachePath).toBeUndefined();
+    expect(config.cacheMaxEntries).toBeUndefined();
     expect(config.healthPath).toBeUndefined();
     expect(config.healthPort).toBe(8787);
     expect(config.healthHost).toBe('0.0.0.0');
@@ -93,6 +95,7 @@ describe('loadConfig', () => {
     process.env.RELAYER_MAX_RETRIES = '5';
     process.env.RELAYER_BACKOFF_MS = '1500';
     process.env.RELAYER_CACHE_PATH = '/tmp/custom.jsonl';
+    process.env.RELAYER_CACHE_MAX_ENTRIES = '2000';
     process.env.RELAYER_HEALTH_PATH = '/tmp/health.json';
     process.env.RELAYER_HEALTH_PORT = '9999';
     process.env.RELAYER_HEALTH_HOST = '127.0.0.1';
@@ -105,6 +108,7 @@ describe('loadConfig', () => {
     expect(config.maxRetries).toBe(5);
     expect(config.backoffMs).toBe(1500);
     expect(config.cachePath).toBe('/tmp/custom.jsonl');
+    expect(config.cacheMaxEntries).toBe(2000);
     expect(config.healthPath).toBe('/tmp/health.json');
     expect(config.healthPort).toBe(9999);
     expect(config.healthHost).toBe('127.0.0.1');
@@ -124,6 +128,7 @@ describe('loadConfig', () => {
       maxRetries: 6,
       backoffMs: 2500,
       cachePath: 'C:/cache/events.jsonl',
+      cacheMaxEntries: 500,
       healthPath: 'C:/cache/health.json',
       healthPort: 9797,
       healthHost: '127.0.0.1',
@@ -145,6 +150,7 @@ describe('loadConfig', () => {
     expect(config.maxRetries).toBe(6)
     expect(config.backoffMs).toBe(2500)
     expect(config.cachePath).toBe('C:/cache/events.jsonl')
+    expect(config.cacheMaxEntries).toBe(500)
     expect(config.healthPath).toBe('C:/cache/health.json')
     expect(config.healthPort).toBe(9797)
     expect(config.healthHost).toBe('127.0.0.1')
@@ -168,6 +174,7 @@ describe('loadConfig', () => {
     process.env.RELAYER_REGISTRY_ADDRESS = '0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     process.env.RELAYER_TOKEN_ADDRESS = '0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
     process.env.RELAYER_MAX_RETRIES = '9'
+    process.env.RELAYER_CACHE_MAX_ENTRIES = '300'
     process.env.RELAYER_HEALTH_CORS_ORIGIN = 'disable'
 
     const config = loadConfig()
@@ -180,6 +187,7 @@ describe('loadConfig', () => {
       '0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
     )
     expect(config.maxRetries).toBe(9)
+    expect(config.cacheMaxEntries).toBe(300)
     expect(config.healthCorsOrigin).toBeUndefined()
   })
 });
