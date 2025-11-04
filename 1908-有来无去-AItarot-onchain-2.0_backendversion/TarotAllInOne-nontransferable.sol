@@ -95,7 +95,7 @@ contract TarotAllInOne is OwnableMini, ERC721Mini {
     // -----------------------------------------
     // ===== ORDER STRUCT (CTRL+F: ORDER_STRUCT_MULTI_REFUND)
     //
-    // 我们支持 "多订单"：
+    // 支持 "多订单"：
     // orders[user][orderId] = { amount, delivered, refunded }
     // nextOrderId[user] 是下一个订单号
     //
@@ -184,7 +184,7 @@ contract TarotAllInOne is OwnableMini, ERC721Mini {
     //
     // 用户为本次牌阵付费：
     // cards * unitPricePerCard = 本单应付金额 needWei
-    // 我们创建一个新订单号 oid = nextOrderId[user]，递增
+    // 创建一个新订单号 oid = nextOrderId[user]，递增
     // 把金额记进 orders[user][oid].amount
     //
     // 注意：允许连续很多单，不阻止并发
