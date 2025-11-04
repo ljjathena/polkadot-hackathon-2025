@@ -47,7 +47,7 @@ export const ABI = [
   "event Transfer(address indexed from, address indexed to, uint256 indexed tokenId)"
 ];
 
-/** 统一获取 BrowserProvider（只取到我们挑的 injected provider） */
+/** 统一获取 BrowserProvider */
 export async function getProvider() {
   const injected = pickInjectedProvider();
   if (!injected) throw new Error("未检测到注入钱包（请安装/启用 MetaMask）");
